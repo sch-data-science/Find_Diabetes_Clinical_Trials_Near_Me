@@ -212,8 +212,13 @@ server <- function(input, output,session) {
   
   output$table <- DT::renderDataTable(DT::datatable({
     temp <- dataInBounds() 
-    temp <- temp %>% dplyr::select(ORG_STUDY_ID,BRIEFTITLE,FACILITYLOC,STATUS,PHASE,STUDYURL,AGE_RANGE,CONDITION)
-    names(temp) <- c("Study ID", "Study Title","Study Site","Site Status","Phase","Study URL", "Age Range","Condition(s)")
+    temp <- temp %>% dplyr::select(ORG_STUDY_ID,BRIEFTITLE,FACILITYLOC,STATUS,PHASE,STUDYURL,CONTACT,
+                                   #PRINCIPAL_INVESTIGATOR,
+                                   AGE_RANGE,CONDITION)
+    names(temp) <- c("Study ID", "Study Title","Study Site","Site Status","Phase","Study URL",
+                     "Contact Name | Email | Phone",
+                     #"Principal Investigator", 
+                     "Age Range","Condition(s)")
     temp
   }, escape = FALSE ,options = list(dom = 'ltp')
   

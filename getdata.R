@@ -88,7 +88,30 @@ for(j in 1:length(data)){
       mutate(studyurl = paste0("https://clinicaltrials.gov/study/",nct_id),)
   }
   
-  data_part2[[j]] <- do.call(rbind,temp2)
+  # Combine all the dataframes in temp2 into a single dataframe 
+  temp2_df <- do.call(rbind,temp2)
+  
+  # create a dataframe of all unique study-facility-contact combinations
+  locations_df <- map_df(locations,dplyr::bind_rows,.id="study_number") %>% 
+    mutate(study_number = as.numeric(study_number),
+           rownumber = seq(1,nrow(.)),
+           geoPoint.lat = geoPoint$lat,
+           geoPoint.lon = geoPoint$lon)
+  
+  nct_id_df <- data.frame(nct_id = nct_id,
+                          study_number = seq(1:length(nct_id)))
+  locations_df2 <- left_join(locations_df,nct_id_df)
+  contacts_df <- map_df(locations_df$contacts,bind_rows,.id="facility_number") %>% 
+    filter(role=="CONTACT") %>% 
+    mutate(facility_number = as.numeric(facility_number))
+  FullContactInfo <- left_join(locations_df2,contacts_df,by=c( "rownumber"="facility_number")) %>%
+    select(facility,nct_id,zip,name,phone,email,geoPoint.lat,geoPoint.lon)
+  
+  # join the contact info to the study/facility info and save to a list
+  temp2_df2 <- left_join(temp2_df,FullContactInfo,
+                         by=c("nct_id"="nct_id","facility"="facility","zip"="zip","geoPoint.lat"="geoPoint.lat","geoPoint.lon"="geoPoint.lon"),
+                         relationship = "many-to-many")
+  data_part2[[j]] <- temp2_df2
 }
 
 finaldata <- do.call(rbind,data_part2) %>% filter(country == "United States")
@@ -139,7 +162,8 @@ finaldata <- finaldata %>% mutate(
   
   CityState = paste0(city,", ",state),
   FacilityLoc = paste0(facility,"; ",city,", ",state),
-  LATEST_REFRESH = Sys.time()) %>% 
+  LATEST_REFRESH = Sys.time(),
+  CONTACT = paste0(name," | ",email," | ",phone)) %>% 
 # Custom groupings
 mutate(
   
