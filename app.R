@@ -14,7 +14,7 @@ trials <- readRDS("trials.RDS")
 
 
 SiteStatus <- c(sort(unique(trials$STATUS)))
-Phase <- c(sort(unique(trials$PHASE)))
+Phase <- c("Phase 1", "Phase 2", "Phase 3", "Phase 4") 
 Condition <- c("Type1","Type2","Gestational","Prediabetes","Neuropathy","Hyperglycemia","Hypoglycemia","Hypertension")
 names(Condition) = c("Type 1 Diabetes","Type 2 Diabetes","Gestational Diabetes","Prediabetes","Neuropathic Complications","Hyperglycemia","Hypoglycemia","Hypertension")
 StudyState <- c(sort(unique(trials$STATE)))
