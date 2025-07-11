@@ -1,6 +1,6 @@
 # Find Diabetes-related Clinical Trials Near Me
 
-This repository stores the code for the <a href='https://schdatascience-find-diabetes-related-clinical-trials-near-me.share.connect.posit.cloud/' target="_blank" rel="noopener noreferrer">"Find Clinical Trials Near Me" app</a> hosted on Posit Connect Cloud.
+This repository stores the code for the <a href='https://schdatascience-find-diabetes-related-clinical-trials-near-me.share.connect.posit.cloud/' target="_blank" rel="noopener noreferrer">"Find Diabetes-related Clinical Trials Near Me" app</a> hosted on Posit Connect Cloud.
 
 Each day, at 5:25 UTC, the github/workflows/main.yml starts an instance of R, loads the necessary R libraries, executes the file, "getdata.R", and then commits the results to this repository
 
@@ -8,13 +8,13 @@ The "getdata.R" file pulls data from <a target="_blank"  rel="noopener noreferre
 Next, the file uses the <a target="_blank" rel="noopener noreferrer" href='https://www.mapbox.com/'>Mapbox API </a> to pull in geocoordinates for those study sites whose geocoordinates are missing in the data provided by ClinicalTrials.gov.
 The data is then formatted to suit the needs of Shiny app (the app.R file) and saved as "trials.RDS" so that it can be used by the Shiny app.
 
-A number of customizations have been made to "getdata.R" file compared to the more generic <a href="https://schdatascience-find-clinical-trials-near-me.share.connect.posit.cloud/">"Find Clinical Trials Near"" Me app</a>. Users can alter/delete/add-to these customizations to suit their particular needs.  Note, changes will need to be made to the "app.R" file to accomodate changes to these customizations and are described below.
+A number of customizations have been made to "getdata.R" file compared to the more generic <a href="https://schdatascience-find-clinical-trials-near-me.share.connect.posit.cloud/">"Find Clinical Trials Near Me" app</a>. Users can alter/delete/add-to these customizations to suit their particular needs.  Note, changes will need to be made to the "app.R" file to accomodate changes to these customizations and are described below.
 
 <br> Lines 121-123: Filter the clinical trials to only include those that have the word "diabetes" in either the Condition, Brief Summary, or Keyword section of the data from ClinicalTrials.gov
 <br> Line 166:  Adds the name, e-mail, and phone number for the contact for the clinical trail at that location.
 <br> Lines 167-261: Create custom groupings to be used as drop-down options for narrowing the search.
 
-The "app.R" file has the code for the Shiny app interface. A number of customizations have been made to this file compared to the more generic <a href="https://schdatascience-find-clinical-trials-near-me.share.connect.posit.cloud/">"Find Clinical Trials Near"" Me app</a>. Users can alter/delete/add-to these customizations to suit their particular needs.
+The "app.R" file has the code for the Shiny app interface. A number of customizations have been made to this file compared to the more generic <a href="https://schdatascience-find-clinical-trials-near-me.share.connect.posit.cloud/">"Find Clinical Trials Near Me" app</a>. Users can alter/delete/add-to these customizations to suit their particular needs.
 
 <br> Lines 18-19: List the names of the customized groupings defined in the "getdata.R"" file on line 18 and then how you'd like them displayed in the drop-down on line 19.
 <br> Lines 72-80: Provide the code for the customized groupings drop-down 
