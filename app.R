@@ -7,48 +7,63 @@ library(leaflet)
 library(stringr)
 library(ggplot2)
 library(dplyr)
+library(bslib)
+library(bsicons)
+library(shinyBS)
 
 trials <- readRDS("trials.RDS")
 
-#DIABETES
 
 
 SiteStatus <- c(sort(unique(trials$STATUS)))
 Phase <- c("Phase 1", "Phase 2", "Phase 3", "Phase 4") 
-Condition <- c("Type1","Type2","Gestational","Prediabetes","Neuropathy","Hyperglycemia","Hypoglycemia","Hypertension")
-names(Condition) = c("Type 1 Diabetes","Type 2 Diabetes","Gestational Diabetes","Prediabetes","Neuropathic Complications","Hyperglycemia","Hypoglycemia","Hypertension")
 StudyState <- c(sort(unique(trials$STATE)))
 StudyCity <- c(sort(unique(trials$CITYSTATE)))
 
 ui <- fluidPage(
-  
-  tags$style(HTML(".dataTables_wrapper .dataTables_filter {
-                     float: left;
-                     padding-left: 50px;}
-                  .dataTables_wrapper .dataTables_filter input{
-                      width: 500px;}"
-  )
-  ),
-  
+
   titlePanel(
     fluidRow(
       column(2, HTML('<a target="_blank" rel="noopener noreferrer" href="https://www.seattlechildrens.org/"><img src = "logo.jpg" height = 100></a>')),
-      column(10,HTML("Diabetes-related Clinical Trials Near Me<br><small>Interventional studies in the United States of America with at least one site/location currently recuriting.<br>
+      column(10,HTML("Clinical Trials Near Me<br><small>Interventional studies in the United States of America with at least one site/location currently recuriting.<br>
                      Data last refreshed ",
-                     format(as.Date(trials$LATEST_REFRESH[1]),format = "%m/%d/%Y"),"</small>"))),windowTitle="Diabetes-related Clinical Trials Near Me"),
+                     format(as.Date(trials$LATEST_REFRESH[1]),format = "%m/%d/%Y"),"</small>"))),windowTitle="Clinical Trials Near Me"),
   
   # Create a new Row in the UI for selectInputs
   tabsetPanel(type="tabs",
               tabPanel("Main",
                        fluidRow(
                          column(2,
+                                bsTooltip("Age_input_a",
+                                          "Age in years",
+                                          placement = "right", trigger = "hover"),
+                                
                                 numericInput(
                                   "Age_input",
-                                  "Enter Participant Age",
-                                  18
+                                  label=tagList(
+                                    "Enter Participant Age",
+                                    tags$span(
+                                      icon("question-circle"),
+                                      id = "Age_input_a",
+                                      style = "margin-left: 5px; cursor: pointer; color: #1c9ed8;"
+                                    )
+                                  ),
+                                  value=18
                                 ),
                                 
-                                pickerInput("SiteStatus_input", "Site Status",
+                                bsTooltip("SiteStatus_input_a",
+                                          "Not all sites for a Clinical Trial are actively recruiting",
+                                          placement = "right", trigger = "hover"),
+                                
+                                pickerInput("SiteStatus_input", 
+                                            label=tagList(
+                                              "Site Status",
+                                              tags$span(
+                                                icon("question-circle"),
+                                                id = "SiteStatus_input_a",
+                                                style = "margin-left: 5px; cursor: pointer; color: #1c9ed8;"
+                                              )
+                                            ),
                                             SiteStatus, selected="RECRUITING",
                                             multiple=TRUE,
                                             options = list(
@@ -56,7 +71,20 @@ ui <- fluidPage(
                                               'actions-box'= TRUE
                                             )
                                 ),
-                                pickerInput("Phase_input", "Phase",
+                                
+                                bsTooltip("Phase_input_a",
+                                          title=HTML("<ul><li>Phase 1 trials focus on safety and dosage.</li><li>Phase 2 trials focus on effectiveness, side effects, and dosage.</li><li>Phase 3 trials compare effectiveness to standard treatments.</li><li>Phase 4 trials examine long-term benefits and side effects.</li></ul>"),
+                                          placement = "right", trigger = "hover"),
+                                
+                                pickerInput("Phase_input", 
+                                            label=tagList(
+                                              "Phase",
+                                              tags$span(
+                                                icon("question-circle"),
+                                                id = "Phase_input_a",
+                                                style = "margin-left: 5px; cursor: pointer; color: #1c9ed8;"
+                                              )
+                                            ),
                                             Phase, selected=Phase,
                                             multiple=TRUE,
                                             options = list(
@@ -70,15 +98,20 @@ ui <- fluidPage(
                                 
                          ),
                          column(3,
-                                pickerInput("Condition_input", "Condition Selector",
-                                            Condition, selected=Condition,
-                                            multiple=TRUE,
-                                            options = list(
-                                              "title" = 'Click to see options',
-                                              'actions-box'= TRUE
+                                bsTooltip("Condition_search_a",
+                                          "Select the Clinical Trials whose Brief Title, Brief Summary, Keyword, and Conditions information contains ALL the words entered below",
+                                          placement = "right", trigger = "hover"),
+                                
+                                textInput("Condition_search",
+                                          
+                                          label=tagList(
+                                            "Search Specific Words",
+                                            tags$span(
+                                              icon("question-circle"),
+                                              id = "Condition_search_a",
+                                              style = "margin-left: 5px; cursor: pointer; color: #1c9ed8;"
                                             )
-                                ),
-                                textInput("Condition_search","Condition or Keyword Search"),
+                                          ))
                                 
                          ),
                          column(2,
@@ -129,7 +162,11 @@ ui <- fluidPage(
                        HTML("For information regarding Seattle Children's Hospital, please visit <a target='_blank' rel='noopener noreferrer' href='https://www.seattlechildrens.org/'>our web page</a>."),
                        HTML("<br>"),
                        HTML("<br>"),
-                       HTML("Code for this app can be downloaded or forked from the <a target='_blank' rel='noopener noreferrer' href='https://github.com/sch-data-science/'>Seattle Children's Hospital Data Science GitHub page</a>.")
+                       HTML("Code for this app can be downloaded or forked from the <a target='_blank' rel='noopener noreferrer' href='https://github.com/sch-data-science/'>Seattle Children's Hospital Data Science GitHub page</a>."),
+                       HTML("<br>"),
+                       HTML("An example that customizes this app for Diabetes-related clinical trials can be found <a target='_blank' rel='noopener noreferrer' href='https://schdatascience-find-diabetes-related-clinical-trials-near-me.share.connect.posit.cloud/'>HERE</a> with the associated code and directions for how to motify the app found on
+                            <a target='_blank' rel='noopener noreferrer' href='https://github.com/sch-data-science/'>Seattle Children's Hospital Data Science GitHub page</a>.")
+                       
               )))
 
 server <- function(input, output,session) {
@@ -156,10 +193,11 @@ server <- function(input, output,session) {
                    data$STATE %in% input$State_input &
                    data$CITYSTATE %in% input$City_input
                  ,]
+    data <- data %>% filter(input$Age_input >= MINAGE & input$Age_input<=MAXAGE)
     
-    data$NConditions = rowSums(data[,c("DUMMY","DUMMY",toupper(input$Condition_input))]/1)
-    data <- data %>% filter(NConditions>0 & input$Age_input >= MINAGE & input$Age_input<=MAXAGE)
+    # Try something like this paste(input$Phase_input, collapse = "|")) and add title search
     
+
     
     if(!(input$Condition_search %in% c(NULL, NA, " ",""))) {
       data <- data %>% filter(rowSums(sapply(
@@ -214,13 +252,8 @@ server <- function(input, output,session) {
   
   output$table <- DT::renderDataTable(DT::datatable({
     temp <- dataInBounds() 
-    temp <- temp %>% dplyr::select(ORG_STUDY_ID,BRIEFTITLE,FACILITYLOC,STATUS,PHASE,STUDYURL,CONTACT,
-                                   #PRINCIPAL_INVESTIGATOR,
-                                   AGE_RANGE,CONDITION)
-    names(temp) <- c("Study ID", "Study Title","Study Site","Site Status","Phase","Study URL",
-                     "Contact Name | Email | Phone",
-                     #"Principal Investigator", 
-                     "Age Range","Condition(s)")
+    temp <- temp %>% dplyr::select(ORG_STUDY_ID,BRIEFTITLE,FACILITYLOC,STATUS,PHASE,STUDYURL,AGE_RANGE,CONDITION)
+    names(temp) <- c("Study ID", "Study Title","Study Site","Site Status","Phase","Study URL", "Age Range","Condition(s)")
     temp
   }, escape = FALSE ,options = list(dom = 'ltp')
   
