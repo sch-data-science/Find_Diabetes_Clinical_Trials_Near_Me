@@ -16,6 +16,7 @@ A number of customizations have been made to "getdata.R" file compared to the mo
 </ul>
 The "app.R" file has the code for the Shiny app interface. A number of customizations have been made to this file compared to the more generic <a href="https://schdatascience-find-clinical-trials-near-me.share.connect.posit.cloud/">"Find Clinical Trials Near Me" app</a>. Users can alter/delete/add-to these customizations to suit their particular needs.
 <br>
+
 <ul>
 <li> Lines 18-19: List the names of the customized groupings defined in the "getdata.R"" file on line 18 and then how you'd like them displayed in the drop-down on line 19.</li>
 <li> Lines 72-80: Provide the code for the customized groupings drop-down </li>
