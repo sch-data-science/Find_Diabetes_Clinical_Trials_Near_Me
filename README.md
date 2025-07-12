@@ -15,12 +15,14 @@ A number of customizations have been made to "getdata.R" file compared to the mo
 <li> Lines 167-261: Create custom groupings to be used as drop-down options for narrowing the search.</li>
 </ul>
 The "app.R" file has the code for the Shiny app interface. A number of customizations have been made to this file compared to the more generic <a href="https://schdatascience-find-clinical-trials-near-me.share.connect.posit.cloud/">"Find Clinical Trials Near Me" app</a>. Users can alter/delete/add-to these customizations to suit their particular needs.
+<br>
 <ul>
 <li> Lines 18-19: List the names of the customized groupings defined in the "getdata.R"" file on line 18 and then how you'd like them displayed in the drop-down on line 19.</li>
 <li> Lines 72-80: Provide the code for the customized groupings drop-down </li>
 <li> Lines 160-161: Filter the data based on the chosen customized groupings</li>
 <li> Lines 217-223: Add the Contact information that was created in the "getdata.R" file and provides the column heading</li>
 </ul>
+<br>
 The "manifest.json" file is used by <a target="_blank"  rel="noopener noreferrer" href="https://connect.posit.cloud/">Posit Connect Cloud</a> and developers should consult the <a href="https://docs.posit.co/connect-cloud/how-to/r/dependencies.html">documentation there</a>. 
 
 Both the "getdata.R" and "app.R" files can be downloaded and run locally, though you will need to have a Mapbox API Key stored in your .REnvironment.
