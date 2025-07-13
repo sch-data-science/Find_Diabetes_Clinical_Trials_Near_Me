@@ -190,7 +190,7 @@ ui <- fluidPage(
                             Geocoding provided by <a target='_blank' rel='noopener noreferrer' href='https://docs.mapbox.com/api/search/geocoding/'>Mapbox Geocoding API</a>. <br>To contact Mapbox and OpenStreetMap to suggest improvements to the map, itself, <strong><a href='https://apps.mapbox.com/feedback/' target='_blank'>Please click here</a></strong>"),
                        HTML("<br>"),
                        HTML("<br>"),
-                       HTML("The customized Condition Selector searches Brief Summary, Keyword, and Conditions fields in the data provided by ClinicalTrials.gov for the following combinations.  When more than one option is checked, Clinical Trials are filtered such that ALL the options are contained.
+                       HTML("The customized Condition Selector searches Brief Summary, Keyword, and Conditions fields in the data provided by ClinicalTrials.gov for the following combinations.  When more than one option is checked, Clinical Trials are filtered to include ANY trials that contain the options.
                        Please see the <a href = 'https://github.com/sch-data-science/Find_Diabetes_Clinical_Trials_Near_Me/blob/main/getdata.R'>code repository</a> for the actual coding statements. <br>
                        
                        <ul>
