@@ -206,13 +206,13 @@ mutate(
                    )==TRUE,1,0),
   
   Prediabetes = ifelse(str_detect(tolower(condition),regex("prediabet"))|
-                         str_detect(tolower(condition),regex("pre.diab")) |
+                         str_detect(tolower(condition),regex("pre.diabet")) |
                          
                          str_detect(tolower(keyword),regex("prediabet"))|
-                         str_detect(tolower(keyword),regex("pre.diab")) |
+                         str_detect(tolower(keyword),regex("pre.diabet")) |
                          
                          str_detect(tolower(briefsummary),regex("prediabet"))|
-                         str_detect(tolower(briefsummary),regex("pre.diab")
+                         str_detect(tolower(briefsummary),regex("pre.diabet")
                          )==TRUE,1,0),
   
   Neuropathy= ifelse(str_detect(tolower(condition),regex("neuropath"))|
@@ -244,14 +244,14 @@ mutate(
                          str_detect(tolower(briefsummary),regex("gdn")
                          )==TRUE,1,0),
   
-  Hyperglycemia = ifelse(str_detect(tolower(condition),regex("hyperglycemia"))|
-                           str_detect(tolower(keyword),regex("hyperglycemia"))|
-                           str_detect(tolower(briefsummary),regex("hyperglycemia")
+  Hyperglycemia = ifelse(str_detect(tolower(condition),regex("hyperglycem"))|
+                           str_detect(tolower(keyword),regex("hyperglycem"))|
+                           str_detect(tolower(briefsummary),regex("hyperglycem")
                            )==TRUE,1,0),
   
-  Hypoglycemia = ifelse(str_detect(tolower(condition),regex("hypoglycemia"))|
-                          str_detect(tolower(keyword),regex("hypoglycemia"))|
-                          str_detect(tolower(briefsummary),regex("hypoglycemia")
+  Hypoglycemia = ifelse(str_detect(tolower(condition),regex("hypoglycem"))|
+                          str_detect(tolower(keyword),regex("hypoglycem"))|
+                          str_detect(tolower(briefsummary),regex("hypoglycem")
                           )==TRUE,1,0),
   
   Hypertension = ifelse(str_detect(tolower(condition),regex("hypertension"))|

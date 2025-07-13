@@ -132,7 +132,7 @@ ui <- fluidPage(
                                             )
                                 ),
                                 bsTooltip("Condition_search_a",
-                                          "Select the Clinical Trials whose Brief Title, Brief Summary, Keyword, and Conditions information contains ALL the words entered below",
+                                          "Select the Clinical Trials whose Brief Title, Brief Summary, Keyword, and Conditions information, when combined, contain ALL the words entered below",
                                           placement = "right", trigger = "hover"),
                                 
                                 textInput("Condition_search",
@@ -189,6 +189,20 @@ ui <- fluidPage(
                        HTML("Map provided by <a target='_blank' rel='noopener noreferrer' href='https://www.openstreetmap.org/copyright'>OpenStreetMap</a> under their  Creative Commons Attribution-ShareAlike 2.0 license (CC BY-SA 2.0).<br>
                             Geocoding provided by <a target='_blank' rel='noopener noreferrer' href='https://docs.mapbox.com/api/search/geocoding/'>Mapbox Geocoding API</a>. <br>To contact Mapbox and OpenStreetMap to suggest improvements to the map, itself, <strong><a href='https://apps.mapbox.com/feedback/' target='_blank'>Please click here</a></strong>"),
                        HTML("<br>"),
+                       HTML("<br>"),
+                       HTML("The customized Condition Selector searches Brief Summary, Keyword, and Conditions fields in the data provided by ClinicalTrials.gov for the following combinations.  When more than one option is checked, Clinical Trials are filtered such that ALL the options are contained.
+                       Please see the <a href = 'https://github.com/sch-data-science/Find_Diabetes_Clinical_Trials_Near_Me/blob/main/getdata.R'>code repository</a> for the actual coding statements. <br>
+                       
+                       <ul>
+                            <li> 'Type 1 Diabetes' looks for various permuations of 'type' and '1' or 'I', with or without spaces or hyphens, along with 't1d' or 't1dm', and with various capitalizaitons.</li>
+                            <li> 'Type 2 Diabetes' looks for various permuations of 'type' and '2' or 'II', with or without spaces or hyphens, along with 't2d' or 't2dm', and with various capitalizaitons.</li>
+                            <li> 'Gestational Diabetes' looks for the words 'gestational' or 'gdn', with various capitalizations. </li>
+                            <li> 'Prediabetes' looks for the pattern 'prediabet' or the combination of 'pre' and 'diabet' with spaces or hyphens between them, with various capitalizations.  This allows us to detect permutations of both prediabetes and prediabetic.</li>
+                            <li> 'Neuropathic Complications' looks for the pattern 'neuropath' to capture both 'neuropathic' and neuropathy, along with the words 'foot', 'ulcer', 'weakness', or 'amputation', all with various capitalizations. </li>
+                            <li> 'Hyperglycemia' looks for the pattern 'hyperglycem' to capture both 'hyperglycemia' and 'hyperglycemic', with various capitalizations.</li>
+                            <li> 'Hypoglycemia' looks for the pattern 'hypoglycem' to capture both 'hypoglycemia' and 'hypoglycemic', with various capitalizations.</li>
+                            <li> 'Hypertension' looks for the word 'hypertension' with various capitalizations. </li>
+                          </ul>"),
                        HTML("<br>"),
                        HTML("For technical questions about this page, please contact:  Andrew.Cooper@SeattleChildrens.Org"),
                        HTML("<br>"),
