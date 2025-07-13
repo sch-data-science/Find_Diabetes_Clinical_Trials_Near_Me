@@ -7,6 +7,9 @@ library(leaflet)
 library(stringr)
 library(ggplot2)
 library(dplyr)
+library(bslib)
+library(bsicons)
+library(shinyBS)
 
 trials <- readRDS("trials.RDS")
 
@@ -42,13 +45,36 @@ ui <- fluidPage(
               tabPanel("Main",
                        fluidRow(
                          column(2,
+                                bsTooltip("Age_input_a",
+                                          "Age in years",
+                                          placement = "right", trigger = "hover"),
+                                
                                 numericInput(
                                   "Age_input",
-                                  "Enter Participant Age",
-                                  18
+                                  label=tagList(
+                                    "Enter Participant Age",
+                                    tags$span(
+                                      icon("question-circle"),
+                                      id = "Age_input_a",
+                                      style = "margin-left: 5px; cursor: pointer; color: #1c9ed8;"
+                                    )
+                                  ),
+                                  value=18
                                 ),
                                 
-                                pickerInput("SiteStatus_input", "Site Status",
+                                bsTooltip("SiteStatus_input_a",
+                                          "Not all sites for a Clinical Trial are actively recruiting",
+                                          placement = "right", trigger = "hover"),
+                                
+                                pickerInput("SiteStatus_input", 
+                                            label=tagList(
+                                              "Site Status",
+                                              tags$span(
+                                                icon("question-circle"),
+                                                id = "SiteStatus_input_a",
+                                                style = "margin-left: 5px; cursor: pointer; color: #1c9ed8;"
+                                              )
+                                            ),
                                             SiteStatus, selected="RECRUITING",
                                             multiple=TRUE,
                                             options = list(
@@ -56,7 +82,20 @@ ui <- fluidPage(
                                               'actions-box'= TRUE
                                             )
                                 ),
-                                pickerInput("Phase_input", "Phase",
+                                
+                                bsTooltip("Phase_input_a",
+                                          title=HTML("<ul><li>Phase 1 trials focus on safety and dosage.</li><li>Phase 2 trials focus on effectiveness, side effects, and dosage.</li><li>Phase 3 trials compare effectiveness to standard treatments.</li><li>Phase 4 trials examine long-term benefits and side effects.</li></ul>"),
+                                          placement = "right", trigger = "hover"),
+                                
+                                pickerInput("Phase_input", 
+                                            label=tagList(
+                                              "Phase",
+                                              tags$span(
+                                                icon("question-circle"),
+                                                id = "Phase_input_a",
+                                                style = "margin-left: 5px; cursor: pointer; color: #1c9ed8;"
+                                              )
+                                            ),
                                             Phase, selected=Phase,
                                             multiple=TRUE,
                                             options = list(
@@ -70,7 +109,21 @@ ui <- fluidPage(
                                 
                          ),
                          column(3,
-                                pickerInput("Condition_input", "Condition Selector",
+                                
+                                bsTooltip("Condition_input_a",
+                                          "See Read Me tab for more information about the drop-down options",
+                                          placement = "right", trigger = "hover"),
+                                
+                                
+                                pickerInput("Condition_input", 
+                                            label=tagList(
+                                              "Condition Selector",
+                                              tags$span(
+                                                icon("question-circle"),
+                                                id = "Condition_input_a",
+                                                style = "margin-left: 5px; cursor: pointer; color: #1c9ed8;"
+                                              )
+                                            ),
                                             Condition, selected=Condition,
                                             multiple=TRUE,
                                             options = list(
@@ -78,8 +131,21 @@ ui <- fluidPage(
                                               'actions-box'= TRUE
                                             )
                                 ),
-                                textInput("Condition_search","Condition or Keyword Search"),
+                                bsTooltip("Condition_search_a",
+                                          "Select the Clinical Trials whose Brief Title, Brief Summary, Keyword, and Conditions information contains ALL the words entered below",
+                                          placement = "right", trigger = "hover"),
                                 
+                                textInput("Condition_search",
+                                          
+                                          label=tagList(
+                                            "Search Specific Words",
+                                            tags$span(
+                                              icon("question-circle"),
+                                              id = "Condition_search_a",
+                                              style = "margin-left: 5px; cursor: pointer; color: #1c9ed8;"
+                                            )
+                                          ))
+ 
                          ),
                          column(2,
                                 pickerInput("State_input", "State Select",
