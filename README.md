@@ -19,10 +19,10 @@ The "app.R" file has the code for the Shiny app interface. A number of customiza
 <br>
 
 <ul>
-<li> Lines 18-19: List the names of the customized groupings defined in the "getdata.R"" file on line 18 and then how you'd like them displayed in the drop-down on line 19.</li>
-<li> Lines 72-80: Provide the code for the customized groupings drop-down </li>
-<li> Lines 160-161: Filter the data based on the chosen customized groupings</li>
-<li> Lines 217-223: Add the Contact information that was created in the "getdata.R" file and provides the column heading</li>
+<li> Lines 21-22: List the names of the customized groupings defined in the "getdata.R"" file on line 21 and then how you'd like them displayed in the drop-down on line 22.</li>
+<li> Lines 113-133: Provide the code for the customized groupings drop-down </li>
+<li> Lines 240-241: Filter the data based on the chosen customized groupings</li>
+<li> Lines 297-303: Add the Contact information that was created in the "getdata.R" file and provides the column heading</li>
 </ul>
 
 
