@@ -166,7 +166,8 @@ ui <- fluidPage(
                                 ),
                                 
                          ),
-                         column(5,HTML("<b>Drag and Zoom to further refine your search</b>")),
+                         column(5,HTML("<b>Select broadest State and Cities to the left, then Drag and Zoom to further refine your search</b>")),
+                        
                          column(5,leafletOutput('map'))
                        ),
                        
