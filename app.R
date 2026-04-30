@@ -304,7 +304,10 @@ server <- function(input, output,session) {
                      #"Principal Investigator", 
                      "Age Range","Condition(s)")
     temp
-  }, escape = FALSE ,options = list(dom = 'ltp')
+  }, escape = FALSE ,extensions = 'Buttons',
+  options = list(dom = 'lfBrtip', 
+                 buttons = c('copy', 'csv', 'excel', 'pdf', 'print'),
+                 lengthMenu = list(c(25, 50,100,-1), c(25, 50,100,"All")))
   
   ))
 }
